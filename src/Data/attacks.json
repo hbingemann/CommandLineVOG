@@ -1,0 +1,56 @@
+{
+  "coolAttack": {
+    "name": "Very Cool Attack",
+    "description": "90% chance of doing 100 arc damage and 100% chance to poison the opponent. 30% chance of confusing self.",
+    "element": "arc",
+    "resistance": 1.3,
+    "weakness": 0.9,
+    "outcomes": {
+
+    }
+  },
+  "fireSwordSlash": {
+    "name": "Fire Sword Slash",
+    "description": "Mighty slash with fire sword hits 70% of the time for 90 solar damage. Always misses in rain.",
+    "element": "solar",
+    "weakness": 1.4,
+    "resistance": 0.6,
+    "outcomes": [
+      {
+        "damage": 90,
+        "conditions": {
+          "chance": 70,
+          "weather": "$not$ rain"
+        }
+      }
+    ]
+  },
+  "luckyBet": {
+    "name": "Lucky Bet",
+    "description": "Coin flip: you take 100 damage or opponent takes 150 damage.",
+    "singleOutcome": true,
+    "outcomes": [
+      {
+        "damage": 150,
+        "conditions": {
+          "chance": 50
+        }
+      },
+      {
+        "health": -100,
+        "conditions": {
+          "chance": 50
+        }
+      }
+    ]
+  },
+  "healthBad": {
+    "name": "Health Is Bad",
+    "description": "The more health you have the less likely you are to take away 50% of opponents health.",
+    "outcomes": [
+      {
+        "damage":
+      }
+    ]
+  }
+}

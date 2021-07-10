@@ -1,0 +1,57 @@
+{
+  "#################### IMPORTANT ##################                   ": [
+  "special conditions are placed on a fighter therefore ",
+  "all effects affect only fighter they are placed on ",
+  "             \/  **NOTES**   \/ ",
+  " - influence numbers are multiplied with whatever they influence ",
+  " - amount numbers add/subtract from whatever they influence "
+  ], "#####################################################": [],
+
+  "validEffectNames": [
+    "damage", "elemental", "chance", "missTurn", "health"
+  ],
+
+  "poison": {
+    "name": "Poison",
+    "description": "Opponent does 25% less damage for 3 turns and makes opponent weak to void damage for 2 turns.",
+    "effects": {
+      "damage": {
+        "influence": 0.75,
+        "turns": 3
+      },
+      "elemental": {
+        "weakness": "void",
+        "turns": 2
+      }
+    }
+  },
+  "confusion": {
+    "name": "Confusion",
+    "description": "Opponent has a 50% chance of missing their turn, and if they get their turn the chance that their attack hits is halved, for the next 4 turns.",
+    "effects": {
+      "missTurn": {
+        "turns": 4,
+        "chance": 50
+      },
+      "chance": {
+        "influence": 0.5,
+        "turns": 4
+      }
+    }
+  },
+  "burn": {
+    "name": "Burn",
+    "description": "Opponent has a 95% chance of taking 5 damage for the next 5 turns. Opponent resistant to solar damage for their next turn.",
+    "effects": {
+      "health": {
+        "amount": -5,
+        "turns": 5,
+        "chance": 95
+      },
+      "elemental": {
+        "resistance": "solar",
+        "turns": 1
+      }
+    }
+  }
+}

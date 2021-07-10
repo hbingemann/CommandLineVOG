@@ -1,0 +1,19 @@
+{
+  "############  NOTES  #############": [
+  "THIS IS JUST AN IDEA, NOT IMPLEMENTED YET ",
+  "",
+  " Idea: ",
+  "  - Various conditions can be defined here ",
+  "  - Examples: is the weather currently rain ",
+  "      does opponent have less than my health ",
+  "  - condition has an id(?) that can be used by attacks / affects optionally ",
+    " ===========================",
+    "   NEW IDEA:",
+    "  conditions will be created by themselves and evaluated in a class later "
+  ],
+  "######### END OF NOTES #############": [],
+
+  "valid condition names": [
+    "chance", "fighterHealth", "weather"
+  ]
+}
