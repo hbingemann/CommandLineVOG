@@ -13,7 +13,7 @@ public class Subject {
      */
 
     // keep track of other classes that are observing
-    protected ArrayList<Observer> observingFunctions;
+    protected ArrayList<Observer> observingFunctions = new ArrayList<>();
 
     // allow other classes to observe by giving this class their observing function
     public void addObserver(Observer observingFunction) {

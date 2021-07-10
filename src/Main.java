@@ -1,3 +1,6 @@
+import Combat.Battle;
+import Combat.Fighter;
+
 import java.util.Scanner;
 
 // libgdx would be a good graphics library if need be
@@ -33,7 +36,11 @@ public class Main {
             Later: ask user for number and decode it to load save data
          */
 
-
+        Battle battle = new Battle();
+        battle.initFighter(200, new String[] {"coolAttack", "lameAttack"}, "Henrik", true);
+        battle.initFighter(200, new String[] {"lameAttack"}, "Computer", false);
+        Fighter winner = battle.run();
+        System.out.println(winner.getName() + " wins!");
 
     }
 

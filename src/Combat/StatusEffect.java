@@ -84,10 +84,7 @@ public class StatusEffect {
             }
         }
         // check if there are any more effects
-        if (effects.length() == 0) {
-            // if not remove this status effect from the fighter somehow
 
-        }
 
         // whatever else should happen when fighter turn ends
 
@@ -109,7 +106,7 @@ public class StatusEffect {
 
     // function to alter health of fighter (taking damage)
     public void affectHealth(Health fighterHealth) {
-        fighterHealth.changeHealth( (int) affectValue("health", fighterHealth.getHealth()));
+        //fighterHealth.changeHealth( (int) affectValue("health", fighterHealth.getHealth()));
     }
 
     // function to alter the chance of missing attack (chance = x out of 100)
