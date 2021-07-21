@@ -1,7 +1,6 @@
 package Combat;
 
-import jdk.swing.interop.SwingInterOpUtils;
-import org.json.JSONObject;
+import Combat.displays.Display;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -51,10 +50,11 @@ public class Battle {
     // - be an access point to classes outside of the package (DONE)
     // - to handle the battle
 
-    private ArrayList<Fighter> fighters = new ArrayList<>();
+    private final ArrayList<Fighter> fighters = new ArrayList<>();
+    private final Display displayComponent;
 
-    public Battle() {
-        // get a display component
+    public Battle(Display displayComponent) {
+        this.displayComponent = displayComponent;
     }
 
     // function to be called when the battle should begin, returns the winning fighter and null if tie
@@ -66,11 +66,7 @@ public class Battle {
         Fighter currentFighter = fighters.get(0);
         while (getAliveFighters().size() == fighters.size()) {
             currentFighter.takeTurn();
-            System.out.print("Hit <enter> to continue: ");
-            input.nextLine();
-            // reset output to show next turn
-            System.out.println("CLEAR");
-            System.out.print("\n\n\n");
+            displayComponent.display();
             turnNumber++;
             currentFighter = fighters.get(turnNumber % fighters.size());
         }
@@ -79,9 +75,9 @@ public class Battle {
     }
 
     // function to initialize fighters
-    public void addFighter(int maxHealth, String[] attackIds, String fighterName, boolean isPlayer) {
+    public void addFighter(int maxHealth, String[] attackIds, String name, boolean isPlayer) {
         // -- NOTE -- The order in which they are initialized is the order of their turns
-        fighters.add(new Fighter(this, maxHealth, attackIds, fighterName, isPlayer));
+        fighters.add(new Fighter(displayComponent,this, maxHealth, attackIds, name, isPlayer));
     }
 
     // function to attack an opposing fighter
@@ -89,8 +85,9 @@ public class Battle {
         Fighter opponent = getOpponent(attacker);
         assert opponent != null;
         opponent.health.takeDamage(damage);
-        System.out.printf("%s now has %d/%d health:\n", opponent.getName(), opponent.health.getHealth(), opponent.health.getMaxHealth());
-        System.out.println(opponent.health.getHealthVisual());
+        // give display some things
+        displayComponent.setAttacked(opponent);
+        displayComponent.setDeltaOpponentHealth(-damage);  // negative damage is the change in health
     }
 
     // get the opponent of a specific fighter
@@ -107,7 +104,7 @@ public class Battle {
     private ArrayList<Fighter> getAliveFighters() {
         ArrayList<Fighter> aliveFighters = new ArrayList<>();
         for (Fighter fighter: fighters) {
-            if (!fighter.health.isDead()) {
+            if (fighter.health.getHealth() > 0) {
                 aliveFighters.add(fighter);
             }
         }

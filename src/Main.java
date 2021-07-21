@@ -1,4 +1,6 @@
 import Combat.Battle;
+import Combat.displays.DefaultDisplay;
+import Combat.displays.Display;
 import Combat.Fighter;
 
 import java.util.Scanner;
@@ -36,11 +38,11 @@ public class Main {
             Later: ask user for number and decode it to load save data
          */
 
-        Battle battle = new Battle();
+        Battle battle = new Battle(new DefaultDisplay(input));
         battle.addFighter(200, new String[] {"coolAttack", "lameAttack"}, "Henrik", true);
         battle.addFighter(200, new String[] {"coolAttack", "lameAttack"}, "Computer", false);
         Fighter winner = battle.run();
-        System.out.println(winner.getName() + " wins!");
+        System.out.println("Main received " + winner.getName() + " as winner.");  // make sure proper fighter returned
 
     }
 

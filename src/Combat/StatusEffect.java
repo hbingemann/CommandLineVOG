@@ -60,7 +60,7 @@ public class StatusEffect {
 
 
 
-    private Observer mainObserver = (notification) -> {
+    private final Observer mainObserver = (notification) -> {
         switch (notification) {
             case FIGHTER_END_TURN:
                 fighterEndTurn();

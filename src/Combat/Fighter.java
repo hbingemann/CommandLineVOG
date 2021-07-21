@@ -1,5 +1,6 @@
 package Combat;
 
+import Combat.displays.Display;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -11,14 +12,16 @@ public class Fighter extends Subject {
     private final ArrayList<Attack> attacks; // all the attacks available to this fighter
     private final boolean isPlayer; // if it's a player ask for input
     private final Battle battle;
+    private final Display displayComponent;
     //private ArrayList<StatusEffect> currentConditions; // store all active special conditions on fighter
 
-    public Fighter(Battle battle, int maxHealth, String[] attackIds, String name, boolean isPlayer) {
+    public Fighter(Display displayComponent, Battle battle, int maxHealth, String[] attackIds, String name, boolean isPlayer) {
         // init variables
         this.health = new Health(maxHealth);
         this.name = name;
         this.isPlayer = isPlayer;
         this.battle = battle;
+        this.displayComponent = displayComponent;
         //currentConditions = new ArrayList<StatusEffect>();
 
         // add all attack objects to attack list
@@ -72,13 +75,11 @@ public class Fighter extends Subject {
         // SECTION  ->  use attack on opponent
         int damage = attackChosen.getDamage();
 
-        // Display the attack result
-        System.out.printf("%s used %s ", name, attackChosen.getName());
-        if (damage == 0) {
-            System.out.print("but it missed! \n\n");
-        } else {
-            System.out.printf("and it did %d damage! \n\n", damage);
-        }
+        // Give the display the result
+        displayComponent.setAttacker(this);
+        displayComponent.setAttack(attackChosen);
+        displayComponent.setDeltaSelfHealth(0); // this will likely change later when healing is introduced
+
 
         // this code really sucks, I'll need to use a display class to make it better
         battle.damageOpponent(damage, this);
@@ -96,7 +97,6 @@ public class Fighter extends Subject {
             System.out.println("\t" + attack.getDescription());
             System.out.println();
         }
-        sendNotification(Notifications.ATTACKS_DISPLAYED);
     }
 
 }
