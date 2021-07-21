@@ -53,6 +53,10 @@ public class Battle {
 
     private ArrayList<Fighter> fighters = new ArrayList<>();
 
+    public Battle() {
+        // get a display component
+    }
+
     // function to be called when the battle should begin, returns the winning fighter and null if tie
     public Fighter run() {
         assert fighters.size() > 1;
@@ -70,12 +74,13 @@ public class Battle {
             turnNumber++;
             currentFighter = fighters.get(turnNumber % fighters.size());
         }
+        // end of match, return the winner and null if its a tie
         return getWinner();
     }
 
     // function to initialize fighters
-    public void initFighter(int maxHealth, String[] attackIds, String fighterName, boolean isPlayer) {
-        // -- NOTE --: The order in which they are initialized is the order of their turns
+    public void addFighter(int maxHealth, String[] attackIds, String fighterName, boolean isPlayer) {
+        // -- NOTE -- The order in which they are initialized is the order of their turns
         fighters.add(new Fighter(this, maxHealth, attackIds, fighterName, isPlayer));
     }
 

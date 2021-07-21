@@ -37,8 +37,8 @@ public class Main {
          */
 
         Battle battle = new Battle();
-        battle.initFighter(200, new String[] {"coolAttack", "lameAttack"}, "Henrik", true);
-        battle.initFighter(200, new String[] {"lameAttack"}, "Computer", false);
+        battle.addFighter(200, new String[] {"coolAttack", "lameAttack"}, "Henrik", true);
+        battle.addFighter(200, new String[] {"coolAttack", "lameAttack"}, "Computer", false);
         Fighter winner = battle.run();
         System.out.println(winner.getName() + " wins!");
 
