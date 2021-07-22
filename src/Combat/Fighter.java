@@ -65,14 +65,14 @@ public class Fighter extends Subject {
         // SECTION  ->  use attack on opponent
         int damage = attackChosen.getDamage();
 
+        // this code really sucks
+        battle.damageOpponent(damage, this);
+
         // Give the display the result
         displayComponent.setAttacker(this);
         displayComponent.setAttack(attackChosen);
         displayComponent.setDeltaAttackerHealth(0); // this will likely change later when healing is introduced
 
-
-        // this code really sucks
-        battle.damageOpponent(damage, this);
 
         // IGNORE: if attack wants to add special condition(s) to opponent, call function in battle to do so
 

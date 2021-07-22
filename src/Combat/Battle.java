@@ -69,8 +69,10 @@ public class Battle {
             currentFighter = fighters.get(turnNumber % fighters.size());
             currentFighter.takeTurn();
             turnNumber++;
-            // ask for conformation to continue
-
+            // display then ask for conformation to continue
+            displayComponent.display();
+            System.out.print("Hit <enter> to continue: ");
+            input.nextLine();
         }
         // end of match, return the winner and null if its a tie
         return getWinner();
@@ -100,7 +102,7 @@ public class Battle {
             }
         }
         return null;
-    }
+    }  // top ten worstest functions
 
     // check for dead fighter, returns dead fighter if there is one, otherwise null
     private ArrayList<Fighter> getAliveFighters() {

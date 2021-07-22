@@ -13,6 +13,10 @@ public class PlayerInput extends Input {
 
         ArrayList<Attack> attacks = fighter.getAttacks();
 
+        // clear to allow for space to show attacks
+        System.out.println("CLEAR");
+        System.out.println("\n\n\n");
+
         // display attacks
         System.out.println("Your Attacks: \n");
         for (int i = 0; i < attacks.size(); i++) {
