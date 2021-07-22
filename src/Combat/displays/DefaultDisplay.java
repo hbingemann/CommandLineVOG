@@ -1,17 +1,6 @@
 package Combat.displays;
 
-import Combat.Fighter;
-
-import java.util.Scanner;
-
 public class DefaultDisplay extends Display{
-
-    private final Scanner input;
-
-    // constructor
-    public DefaultDisplay(Scanner input) {
-        this.input = input;
-    }
 
     // main display function
     @Override
@@ -20,10 +9,17 @@ public class DefaultDisplay extends Display{
         // first assert necessary variables
         assert attacker != null &&
                 attack != null &&
-                attacked != null;
+                opponent != null &&
+                deltaOpponentHealth != null &&
+                deltaAttackerHealth != null;
+
+
+        // reset output to show this turn
+        System.out.println("CLEAR");
+        System.out.print("\n\n\n");
 
         // begin display by saying the attack used
-        System.out.printf("%s used %s on %s!\n", attacker.getName(), attack.getName(), attacked.getName());
+        System.out.printf("%s used %s on %s!\n", attacker.getName(), attack.getName(), opponent.getName());
 
         // display what attack did to opponent
         if (deltaOpponentHealth < 0) {
@@ -31,14 +27,14 @@ public class DefaultDisplay extends Display{
         } else if (deltaOpponentHealth == 0) {
             System.out.print("It missed!\n");
         } else {
-            System.out.printf("Oh no! %s healed %s for %d health!", attacker.getName(), attacked.getName(), Math.abs(deltaOpponentHealth));
+            System.out.printf("Oh no! %s healed %s for %d health!", attacker.getName(), opponent.getName(), Math.abs(deltaOpponentHealth));
         }
 
         // display if the attack did damage to self (or healed)
-        if (deltaSelfHealth < 0) {
-            System.out.printf("Oh no! %s did %d damage to themselves!\n", attacker.getName(), Math.abs(deltaSelfHealth));
-        } else if (deltaSelfHealth > 0) {
-            System.out.printf("%s healed themselves for %d health!\n", attacker.getName(), Math.abs(deltaSelfHealth));
+        if (deltaAttackerHealth < 0) {
+            System.out.printf("Oh no! %s did %d damage to themselves!\n", attacker.getName(), Math.abs(deltaAttackerHealth));
+        } else if (deltaAttackerHealth > 0) {
+            System.out.printf("%s healed themselves for %d health!\n", attacker.getName(), Math.abs(deltaAttackerHealth));
         }
 
         // maybe display some status effect stuff here later
@@ -51,24 +47,16 @@ public class DefaultDisplay extends Display{
 
         // display the attacked fighter's health
         System.out.printf("%s health: %d/%d \n%s\n",
-                attacked.getName(),
-                attacked.health.getHealth(), attacked.health.getMaxHealth(),
-                getHealthVisual(attacked.health.getHealth(), attacked.health.getMaxHealth()));
+                opponent.getName(),
+                opponent.health.getHealth(), opponent.health.getMaxHealth(),
+                getHealthVisual(opponent.health.getHealth(), opponent.health.getMaxHealth()));
 
-        // if there is a winner display it
-        if (attacked.health.getHealth() == 0) {
-            System.out.printf("%s wins!\n", attacker.getName());
+        // if there is a death, display it
+        if (opponent.health.getHealth() == 0) {
+            System.out.printf("%s died.\n", opponent.getName());
         } else if (attacker.health.getHealth() == 0) {
-            System.out.printf("%s wins!\n", attacked.getName());
+            System.out.printf("%s died.\n", attacker.getName());
         }
-
-        // ask the player to continue as they have now read through the results
-        System.out.print("Hit <enter> to continue: ");
-        input.nextLine();
-
-        // reset output to show next turn
-        System.out.println("CLEAR");
-        System.out.print("\n\n\n");
 
     }
 

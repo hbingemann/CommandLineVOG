@@ -38,7 +38,7 @@ public class Main {
             Later: ask user for number and decode it to load save data
          */
 
-        Battle battle = new Battle(new DefaultDisplay(input));
+        Battle battle = new Battle(new DefaultDisplay());
         battle.addFighter(200, new String[] {"coolAttack", "lameAttack"}, "Henrik", true);
         battle.addFighter(200, new String[] {"coolAttack", "lameAttack"}, "Computer", false);
         Fighter winner = battle.run();

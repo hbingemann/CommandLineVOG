@@ -63,12 +63,13 @@ public class Battle {
 
         // begin the turn taking loop
         int turnNumber = 0;
-        Fighter currentFighter = fighters.get(0);
+        Fighter currentFighter;
         while (getAliveFighters().size() == fighters.size()) {
-            currentFighter.takeTurn();
-            displayComponent.display();
-            turnNumber++;
             currentFighter = fighters.get(turnNumber % fighters.size());
+            currentFighter.takeTurn();
+            turnNumber++;
+            // ask for conformation to continue
+
         }
         // end of match, return the winner and null if its a tie
         return getWinner();
@@ -80,13 +81,13 @@ public class Battle {
         fighters.add(new Fighter(displayComponent,this, maxHealth, attackIds, name, isPlayer));
     }
 
-    // function to attack an opposing fighter
+    // change this
     public void damageOpponent(int damage, Fighter attacker) {
         Fighter opponent = getOpponent(attacker);
         assert opponent != null;
         opponent.health.takeDamage(damage);
         // give display some things
-        displayComponent.setAttacked(opponent);
+        displayComponent.setOpponent(opponent);
         displayComponent.setDeltaOpponentHealth(-damage);  // negative damage is the change in health
     }
 

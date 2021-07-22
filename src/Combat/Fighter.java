@@ -1,7 +1,6 @@
 package Combat;
 
 import Combat.displays.Display;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -78,10 +77,10 @@ public class Fighter extends Subject {
         // Give the display the result
         displayComponent.setAttacker(this);
         displayComponent.setAttack(attackChosen);
-        displayComponent.setDeltaSelfHealth(0); // this will likely change later when healing is introduced
+        displayComponent.setDeltaAttackerHealth(0); // this will likely change later when healing is introduced
 
 
-        // this code really sucks, I'll need to use a display class to make it better
+        // this code really sucks
         battle.damageOpponent(damage, this);
 
         // IGNORE: if attack wants to add special condition(s) to opponent, call function in battle to do so

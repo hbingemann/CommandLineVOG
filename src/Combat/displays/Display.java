@@ -17,16 +17,16 @@ public class Display {
             -- miss / no miss
             -- result after dealing damage
      */
-    protected int deltaOpponentHealth, deltaSelfHealth;
-    protected Fighter attacker, attacked;
+    protected Integer deltaOpponentHealth, deltaAttackerHealth;
+    protected Fighter attacker, opponent;
     protected Attack attack;
 
     public void display() {}
 
     public void setAttack(Attack attack) { this.attack = attack; }
 
-    public void setAttacked(Fighter attacked) {
-        this.attacked = attacked;
+    public void setOpponent(Fighter opponent) {
+        this.opponent = opponent;
     }
 
     public void setAttacker(Fighter attacker) {
@@ -37,7 +37,7 @@ public class Display {
         this.deltaOpponentHealth = deltaOpponentHealth;
     }
 
-    public void setDeltaSelfHealth(int deltaSelfHealth) {
-        this.deltaSelfHealth = deltaSelfHealth;
+    public void setDeltaAttackerHealth(int deltaAttackerHealth) {
+        this.deltaAttackerHealth = deltaAttackerHealth;
     }
 }
