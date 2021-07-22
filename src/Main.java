@@ -2,6 +2,8 @@ import Combat.Battle;
 import Combat.displays.DefaultDisplay;
 import Combat.displays.Display;
 import Combat.Fighter;
+import Combat.inputs.ComputerInput;
+import Combat.inputs.PlayerInput;
 
 import java.util.Scanner;
 
@@ -39,8 +41,8 @@ public class Main {
          */
 
         Battle battle = new Battle(new DefaultDisplay());
-        battle.addFighter(200, new String[] {"coolAttack", "lameAttack"}, "Henrik", true);
-        battle.addFighter(200, new String[] {"coolAttack", "lameAttack"}, "Computer", false);
+        battle.addFighter(new PlayerInput(), 200, new String[] {"coolAttack", "lameAttack"}, "Henrik");
+        battle.addFighter(new ComputerInput(), 200, new String[] {"coolAttack", "lameAttack"}, "Computer");
         Fighter winner = battle.run();
         System.out.println("Main received " + winner.getName() + " as winner.");  // make sure proper fighter returned
 

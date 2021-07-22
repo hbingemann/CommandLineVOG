@@ -1,6 +1,7 @@
 package Combat;
 
 import Combat.displays.Display;
+import Combat.inputs.Input;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -76,12 +77,12 @@ public class Battle {
     }
 
     // function to initialize fighters
-    public void addFighter(int maxHealth, String[] attackIds, String name, boolean isPlayer) {
+    public void addFighter(Input inputComponent, int maxHealth, String[] attackIds, String name) {
         // -- NOTE -- The order in which they are initialized is the order of their turns
-        fighters.add(new Fighter(displayComponent,this, maxHealth, attackIds, name, isPlayer));
+        fighters.add(new Fighter(displayComponent, inputComponent, this, maxHealth, attackIds, name));
     }
 
-    // change this
+    // change this, please i beg
     public void damageOpponent(int damage, Fighter attacker) {
         Fighter opponent = getOpponent(attacker);
         assert opponent != null;

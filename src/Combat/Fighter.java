@@ -1,6 +1,7 @@
 package Combat;
 
 import Combat.displays.Display;
+import Combat.inputs.Input;
 
 import java.util.ArrayList;
 
@@ -9,18 +10,18 @@ public class Fighter extends Subject {
     private final String name;
     public Health health; // represents fighter health
     private final ArrayList<Attack> attacks; // all the attacks available to this fighter
-    private final boolean isPlayer; // if it's a player ask for input
     private final Battle battle;
     private final Display displayComponent;
+    private final Input inputComponent;
     //private ArrayList<StatusEffect> currentConditions; // store all active special conditions on fighter
 
-    public Fighter(Display displayComponent, Battle battle, int maxHealth, String[] attackIds, String name, boolean isPlayer) {
+    public Fighter(Display displayComponent, Input inputComponent, Battle battle, int maxHealth, String[] attackIds, String name) {
         // init variables
         this.health = new Health(maxHealth);
         this.name = name;
-        this.isPlayer = isPlayer;
         this.battle = battle;
         this.displayComponent = displayComponent;
+        this.inputComponent = inputComponent;
         //currentConditions = new ArrayList<StatusEffect>();
 
         // add all attack objects to attack list
@@ -59,17 +60,7 @@ public class Fighter extends Subject {
         // IGNORE: loop through current special conditions and tell them to do their stuff (miss turn, take damage, )
 
         // SECTION   ->    choosing attack
-        Attack attackChosen;
-        if (isPlayer) {
-            // get input
-            displayAttacks();
-            System.out.print("Enter attack number: ");
-            attackChosen = attacks.get(Integer.parseInt(Battle.input.nextLine()) - 1);
-            System.out.println();
-        } else {
-            // computer so pick random attack (maybe AI later?)
-            attackChosen = attacks.get((int) (Math.random() * attacks.size()));
-        }
+        Attack attackChosen = inputComponent.getAttackChoice(this);
 
         // SECTION  ->  use attack on opponent
         int damage = attackChosen.getDamage();
@@ -88,14 +79,5 @@ public class Fighter extends Subject {
         sendNotification(Notifications.FIGHTER_END_TURN);
     }
 
-    private void displayAttacks() {
-        System.out.println("Your Attacks: \n");
-        for (int i = 0; i < attacks.size(); i++) {
-            Attack attack = attacks.get(i);
-            System.out.printf("%d. %s \n", i + 1, attack.getName());
-            System.out.println("\t" + attack.getDescription());
-            System.out.println();
-        }
-    }
-
+    public ArrayList<Attack> getAttacks() { return attacks; }
 }
