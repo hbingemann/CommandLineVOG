@@ -1,5 +1,8 @@
 package Combat.displays;
 
+import Combat.Fighter;
+import org.jetbrains.annotations.NotNull;
+
 public class DefaultDisplay extends Display{
 
     // main display function
@@ -40,36 +43,38 @@ public class DefaultDisplay extends Display{
         // maybe display some status effect stuff here later
 
         // display the attacker's health
-        System.out.printf("%s health: %d/%d \n%s\n",
+        System.out.printf("%s health: %d/%d \n%s\n\n",
                 attacker.getName(),
-                attacker.health.getHealth(), attacker.health.getMaxHealth(),
-                getHealthVisual(attacker.health.getHealth(), attacker.health.getMaxHealth()));
+                attacker.healthComponent.getHealth(), attacker.healthComponent.getMaxHealth(),
+                getHealthVisual(attacker));
 
-        // display the attacked fighter's health
-        System.out.printf("%s health: %d/%d \n%s\n",
+        // display the opponent fighter's health
+        System.out.printf("%s health: %d/%d \n%s\n\n",
                 opponent.getName(),
-                opponent.health.getHealth(), opponent.health.getMaxHealth(),
-                getHealthVisual(opponent.health.getHealth(), opponent.health.getMaxHealth()));
+                opponent.healthComponent.getHealth(), opponent.healthComponent.getMaxHealth(),
+                getHealthVisual(opponent));
 
         // if there is a death, display it
-        if (opponent.health.getHealth() == 0) {
-            System.out.printf("%s died.\n", opponent.getName());
-        } else if (attacker.health.getHealth() == 0) {
-            System.out.printf("%s died.\n", attacker.getName());
+        if (opponent.healthComponent.getHealth() == 0) {
+            System.out.printf("%s died.\n\n", opponent.getName());
+        } else if (attacker.healthComponent.getHealth() == 0) {
+            System.out.printf("%s died.\n\n", attacker.getName());
         }
 
     }
 
     // good function yeah yeah cool man
-    private String getHealthVisual(int currentHealth, int maxHealth) {
+    private @NotNull String getHealthVisual(Fighter fighter) {
         // change these
         int healthBarLength = 20;
         String healthCharacter = "#";
         String missingHealthCharacter = "-";
         // don't change these
+        int currentHealth = fighter.healthComponent.getHealth();
+        int maxHealth = fighter.healthComponent.getMaxHealth();
         int healthLength = (int)(healthBarLength * ((double)currentHealth/(double)maxHealth));
+        // should look something like this: "[################----]"
         String healthVisual = "[";
-        // should look something like this: "[################----]
         healthVisual += new String(new char[healthLength]).replace("\0", healthCharacter);
         healthVisual += new String(new char[healthBarLength - healthLength]).replace("\0", missingHealthCharacter);
         healthVisual += "]";

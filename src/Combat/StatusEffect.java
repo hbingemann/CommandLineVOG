@@ -1,5 +1,6 @@
 package Combat;
 
+import Combat.health.Health;
 import Debug.Debug;
 
 import org.json.JSONArray;

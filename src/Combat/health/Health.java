@@ -1,4 +1,4 @@
-package Combat;
+package Combat.health;
 
 public class Health {
 
@@ -17,14 +17,14 @@ public class Health {
         }
     }
 
-    public void heal(int healthIncrease) {
-        health += healthIncrease;
+    public void heal(int healValue) {
+        health += healValue;
         if (health > maxHealth) {
             health = maxHealth;
         }
     }
 
-    // getters and setters
+    // getters
     public int getHealth() {
         return health;
     }

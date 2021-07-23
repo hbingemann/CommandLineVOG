@@ -1,6 +1,7 @@
 package Combat;
 
 import Combat.displays.Display;
+import Combat.health.Health;
 import Combat.inputs.Input;
 
 import java.util.ArrayList;
@@ -8,16 +9,16 @@ import java.util.ArrayList;
 public class Fighter extends Subject {
 
     private final String name;
-    public Health health; // represents fighter health
+    public Health healthComponent; // represents fighter health
     private final ArrayList<Attack> attacks; // all the attacks available to this fighter
     private final Battle battle;
     private final Display displayComponent;
     private final Input inputComponent;
     //private ArrayList<StatusEffect> currentConditions; // store all active special conditions on fighter
 
-    public Fighter(Display displayComponent, Input inputComponent, Battle battle, int maxHealth, String[] attackIds, String name) {
+    public Fighter(Display displayComponent, Input inputComponent, Health healthComponent, Battle battle, String[] attackIds, String name) {
         // init variables
-        this.health = new Health(maxHealth);
+        this.healthComponent = healthComponent;
         this.name = name;
         this.battle = battle;
         this.displayComponent = displayComponent;

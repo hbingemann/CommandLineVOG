@@ -1,6 +1,7 @@
 package Combat;
 
 import Combat.displays.Display;
+import Combat.health.Health;
 import Combat.inputs.Input;
 
 import java.util.ArrayList;
@@ -79,16 +80,16 @@ public class Battle {
     }
 
     // function to initialize fighters
-    public void addFighter(Input inputComponent, int maxHealth, String[] attackIds, String name) {
+    public void addFighter(Input inputComponent, Health healthComponent, String[] attackIds, String name) {
         // -- NOTE -- The order in which they are initialized is the order of their turns
-        fighters.add(new Fighter(displayComponent, inputComponent, this, maxHealth, attackIds, name));
+        fighters.add(new Fighter(displayComponent, inputComponent, healthComponent,this, attackIds, name));
     }
 
     // change this, please i beg
     public void damageOpponent(int damage, Fighter attacker) {
         Fighter opponent = getOpponent(attacker);
         assert opponent != null;
-        opponent.health.takeDamage(damage);
+        opponent.healthComponent.takeDamage(damage);
         // give display some things
         displayComponent.setOpponent(opponent);
         displayComponent.setDeltaOpponentHealth(-damage);  // negative damage is the change in health
@@ -108,7 +109,7 @@ public class Battle {
     private ArrayList<Fighter> getAliveFighters() {
         ArrayList<Fighter> aliveFighters = new ArrayList<>();
         for (Fighter fighter: fighters) {
-            if (fighter.health.getHealth() > 0) {
+            if (fighter.healthComponent.getHealth() > 0) {
                 aliveFighters.add(fighter);
             }
         }
