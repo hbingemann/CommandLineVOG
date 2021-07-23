@@ -1,4 +1,4 @@
-package Combat;
+package Debug;
 
 public class Debug {
 

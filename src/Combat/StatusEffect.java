@@ -1,5 +1,7 @@
 package Combat;
 
+import Debug.Debug;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -123,7 +125,8 @@ public class StatusEffect {
     }
 
 
-    /* ###################################
+    /*
+    * ###################################
     *
     * FUNCTIONS THAT SIMPLIFY ABOVE METHODS
     *
