@@ -39,13 +39,14 @@ public class Attack {
     }
 
     // make a function here called evaluate conditions to evaluate things like "is rainy" or "chance 100"
+    // conditions themselves will be evaluated by another class
 
-    // also make a function to get other damage that may occur if attack misses
+    // also make a function to get self damage that may occur if attack misses
 
+    // getters
     public String getName() {
         return attackData.getString("name");
     }
-
     public String getDescription() {
         return attackData.getString("description");
     }

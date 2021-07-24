@@ -1,4 +1,4 @@
-package Combat.displays;
+package Combat.display;
 
 import Combat.Attack;
 import Combat.Fighter;

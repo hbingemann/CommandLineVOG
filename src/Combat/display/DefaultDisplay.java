@@ -1,9 +1,13 @@
-package Combat.displays;
+package Combat.display;
 
 import Combat.Fighter;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Scanner;
+
 public class DefaultDisplay extends Display{
+
+    Scanner input = new Scanner(System.in);
 
     // main display function
     @Override
@@ -14,7 +18,7 @@ public class DefaultDisplay extends Display{
                 attack != null &&
                 opponent != null &&
                 deltaOpponentHealth != null &&
-                deltaAttackerHealth != null;
+                deltaAttackerHealth != null : "The Display is missing a variable!";
 
 
         // reset output to show this turn
@@ -32,6 +36,7 @@ public class DefaultDisplay extends Display{
         } else {
             System.out.printf("Oh no! %s healed %s for %d health!", attacker.getName(), opponent.getName(), Math.abs(deltaOpponentHealth));
         }
+        System.out.println();
 
         // display if the attack did damage to self (or healed)
         if (deltaAttackerHealth < 0) {
@@ -43,23 +48,37 @@ public class DefaultDisplay extends Display{
         // maybe display some status effect stuff here later
 
         // display the attacker's health
-        System.out.printf("%s health: %d/%d \n%s\n\n",
+        System.out.printf("%s health: %d/%d \n%s\n",
                 attacker.getName(),
                 attacker.healthComponent.getHealth(), attacker.healthComponent.getMaxHealth(),
                 getHealthVisual(attacker));
+        System.out.println();
 
         // display the opponent fighter's health
-        System.out.printf("%s health: %d/%d \n%s\n\n",
+        System.out.printf("%s health: %d/%d \n%s\n",
                 opponent.getName(),
                 opponent.healthComponent.getHealth(), opponent.healthComponent.getMaxHealth(),
                 getHealthVisual(opponent));
+        System.out.println();
 
         // if there is a death, display it
         if (opponent.healthComponent.getHealth() == 0) {
-            System.out.printf("%s died.\n\n", opponent.getName());
+            System.out.printf("%s died.\n", opponent.getName());
         } else if (attacker.healthComponent.getHealth() == 0) {
-            System.out.printf("%s died.\n\n", attacker.getName());
+            System.out.printf("%s died.\n", attacker.getName());
         }
+        System.out.println();
+
+        // ask for confirmation to continue
+        System.out.print("Hit <enter> to continue");
+        input.nextLine();
+
+        // reset all variables
+        attacker = null;
+        attack = null;
+        opponent = null;
+        deltaAttackerHealth = null;
+        deltaOpponentHealth = null;
 
     }
 

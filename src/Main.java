@@ -1,11 +1,12 @@
 import Combat.Battle;
-import Combat.displays.DefaultDisplay;
-import Combat.displays.Display;
+import Combat.display.DefaultDisplay;
 import Combat.Fighter;
 import Combat.health.Health;
-import Combat.inputs.ComputerInput;
-import Combat.inputs.PlayerInput;
+import Combat.input.ComputerInput;
+import Combat.input.PlayerInput;
+import Combat.turns.DefaultTurnTaking;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 // libgdx would be a good graphics library if need be
@@ -41,11 +42,11 @@ public class Main {
             Later: ask user for number and decode it to load save data
          */
 
-        Battle battle = new Battle(new DefaultDisplay());
-        battle.addFighter(new PlayerInput(), new Health(200), new String[] {"coolAttack", "lameAttack"}, "Henrik");
-        battle.addFighter(new ComputerInput(), new Health(200), new String[] {"coolAttack", "lameAttack"}, "Computer");
-        Fighter winner = battle.run();
-        System.out.println("Main received " + winner.getName() + " as winner.");  // make sure proper fighter returned
+        Battle battle = new Battle(new DefaultDisplay(), new DefaultTurnTaking());
+        battle.addFighterTeamA(new PlayerInput(), new Health(200), new String[] {"coolAttack", "lameAttack"}, "Henrik");
+        battle.addFighterTeamB(new ComputerInput(), new Health(200), new String[] {"coolAttack", "lameAttack"}, "Computer");
+        battle.run();
+        System.out.println("Main received " + battle.getWinningTeam().toString() + " as winners.");  // make sure proper winners returned
 
     }
 
