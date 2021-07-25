@@ -6,7 +6,7 @@ import Combat.input.Input;
 
 import java.util.ArrayList;
 
-public class Fighter extends Subject {
+public class Fighter extends ComponentContainer {
 
     private final String name; // the fighter's name
     public final Health healthComponent; // represents fighter health
@@ -53,8 +53,6 @@ public class Fighter extends Subject {
         display.setDeltaAttackerHealth(0); // this will likely change later when healing is introduced
         display.setDeltaOpponentHealth(-damage);
         display.setOpponent(opponent);
-
-        sendNotification(Notifications.FIGHTER_END_TURN);
     }
 
     // getters

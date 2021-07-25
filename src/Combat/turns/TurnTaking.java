@@ -1,9 +1,10 @@
 package Combat.turns;
 
 import Combat.Battle;
+import Combat.Component;
 import Combat.Fighter;
 
-public class TurnTaking {
+public class TurnTaking extends Component {
 
     int turn = 0;
 

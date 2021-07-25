@@ -31,7 +31,7 @@ public class PlayerInput extends Input {
         while (true) {
             try {
                 System.out.print("Enter attack number: ");
-                return attacks.get(Integer.parseInt(Battle.input.nextLine()) - 1);
+                return attacks.get(Integer.parseInt(input.nextLine()) - 1);
             } catch (NumberFormatException e) {
                 System.out.println("Invalid input. Try Again.");
             }

@@ -7,8 +7,6 @@ import java.util.Scanner;
 
 public class DefaultDisplay extends Display{
 
-    Scanner input = new Scanner(System.in);
-
     // main display function
     @Override
     public void display() {

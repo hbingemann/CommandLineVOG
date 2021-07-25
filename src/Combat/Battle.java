@@ -9,15 +9,12 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 // main class for combat
-public class Battle {
+public class Battle extends ComponentContainer {
 
     // holds the input class
     public static final Scanner input = new Scanner(System.in);
 
     /*
-
-    Attack example:
-
     Special Condition ideas:
         - opponent or self miss turn
         - take damage/heal over time
@@ -44,7 +41,6 @@ public class Battle {
         - attack upgrades
         - max amount of specialConditions is 5
         - ESSENTIAL: make attacks balanced
-
      */
 
     private final ArrayList<Fighter> teamA = new ArrayList<>();

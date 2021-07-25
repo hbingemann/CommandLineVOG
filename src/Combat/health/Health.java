@@ -1,6 +1,8 @@
 package Combat.health;
 
-public class Health {
+import Combat.Component;
+
+public class Health extends Component {
 
     private int health;
     private final int maxHealth;
