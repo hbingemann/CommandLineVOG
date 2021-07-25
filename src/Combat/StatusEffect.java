@@ -48,7 +48,7 @@ public class StatusEffect {
         // create a new object so that it can be altered, the Effect does not need to be altered
         this.effects = new JSONObject(statusEffectDefinitionObject.getJSONObject("effects").toString());
         // "subscribe" to the fighters events
-        fighterWithStatusEffect.addObserver(mainObserver);
+        //fighterWithStatusEffect.addObserver(mainObserver);
     }
 
 

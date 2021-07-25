@@ -26,6 +26,10 @@ public class Fighter extends ComponentContainer {
         for (String attackId: attackIds) {
             attacks.add(new Attack(attackId));
         }
+
+        // add the components
+        this.components.add(inputComponent);
+        this.components.add(healthComponent);
     }
 
     /*

@@ -10,6 +10,6 @@ public class ComponentContainer {
         }
     }
 
-    private ArrayList<Component> components;
+    protected ArrayList<Component> components = new ArrayList<>();
 
 }
