@@ -70,7 +70,7 @@ public class DefaultDisplay extends Display{
         System.out.println();
 
         // ask for confirmation to continue
-        System.out.print("Hit <enter> to continue");
+        System.out.print("Hit <enter> to continue: ");
         input.nextLine();
 
         // reset all variables

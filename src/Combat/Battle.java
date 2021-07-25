@@ -59,13 +59,14 @@ public class Battle {
 
     // function to be called when the battle should begin, returns the winning team and null if tie
     public void run() {
-        assert teamA.size() >= 1 && teamB.size() >= 1; // make sure we have enough players
+        // make sure we have enough players
+        assert teamA.size() >= 1 && teamB.size() >= 1;
 
-        // begin the turn taking loop
+        // take turns while there is at least one player from each team who is alive
         while (getTeamAlive(teamA) && getTeamAlive(teamB)) {
-            // have fighter take turn
+            // have the next fighter up take their turn
             turnTakingComponent.next(this).takeTurn();
-            // display
+            // display the turn
             displayComponent.display();
         }
     }
@@ -107,22 +108,12 @@ public class Battle {
     }
 
     // getters
-    public Display getDisplayComponent() {
-        return displayComponent;
-    }
-
+    public Display getDisplayComponent() { return displayComponent; }
     public ArrayList<Fighter> getTeamA() {
         return teamA;
     }
-
     public ArrayList<Fighter> getTeamB() {
         return teamB;
     }
-
-    public ArrayList<Fighter> getOpponents(Fighter fighter) {
-        if (teamA.contains(fighter)) {
-            return teamB;
-        }
-        return teamA;
-    }
+    public ArrayList<Fighter> getOpponents(Fighter fighter) { return teamA.contains(fighter) ? teamB : teamA; }
 }

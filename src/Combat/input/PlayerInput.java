@@ -28,8 +28,14 @@ public class PlayerInput extends Input {
         }
 
         // get input
-        System.out.print("Enter attack number: ");
-        return attacks.get(Integer.parseInt(Battle.input.nextLine()) - 1);
+        while (true) {
+            try {
+                System.out.print("Enter attack number: ");
+                return attacks.get(Integer.parseInt(Battle.input.nextLine()) - 1);
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Try Again.");
+            }
+        }
     }
 
     // for choosing opponent
