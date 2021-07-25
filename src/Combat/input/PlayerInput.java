@@ -14,7 +14,7 @@ public class PlayerInput extends Input {
 
         ArrayList<Attack> attacks = fighter.getAttacks();
 
-        // clear to allow for space to show attacks
+        // clear for space to show attacks
         System.out.println("CLEAR");
         System.out.println("\n\n\n");
 
@@ -32,7 +32,7 @@ public class PlayerInput extends Input {
             try {
                 System.out.print("Enter attack number: ");
                 return attacks.get(Integer.parseInt(input.nextLine()) - 1);
-            } catch (NumberFormatException e) {
+            } catch (NumberFormatException | IndexOutOfBoundsException e) {
                 System.out.println("Invalid input. Try Again.");
             }
         }
@@ -45,7 +45,7 @@ public class PlayerInput extends Input {
         if (opponents.size() == 1) {
             return opponents.get(0);  // only one choice so it would be redundant to ask the user for opponent choice
         } else {
-            return null; // TODO: implement opponent choosing
+            return null; // TODO: implement opponent choosing with multiple opponents
         }
     }
 
