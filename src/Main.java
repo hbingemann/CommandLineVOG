@@ -1,10 +1,13 @@
 import Combat.Battle;
 import Combat.display.DefaultDisplay;
 import Combat.Fighter;
+import Combat.display.Display;
 import Combat.health.Health;
 import Combat.input.ComputerInput;
+import Combat.input.Input;
 import Combat.input.PlayerInput;
 import Combat.turns.DefaultTurnTaking;
+import Combat.turns.TurnTaking;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -42,9 +45,14 @@ public class Main {
             Later: ask user for number and decode it to load save data
          */
 
-        Battle battle = new Battle(new DefaultDisplay(), new DefaultTurnTaking());
-        battle.addFighterTeamA(new PlayerInput(), new Health(200), new String[] {"coolAttack", "lameAttack"}, "Henrik");
-        battle.addFighterTeamB(new ComputerInput(), new Health(200), new String[] {"coolAttack", "lameAttack"}, "Computer");
+        Display displayComponent = new DefaultDisplay();
+        String[] attacks = new String[] {"coolAttack", "lameAttack"};
+        Health healthComponent = new Health(200);
+        TurnTaking turnTakingComponent = new DefaultTurnTaking();
+
+        Battle battle = new Battle(turnTakingComponent);
+        battle.addFighterTeamA(new PlayerInput(), displayComponent, healthComponent, attacks, "Henrik");
+        battle.addFighterTeamB(new ComputerInput(), displayComponent, healthComponent, attacks, "Computer");
         battle.run();
         System.out.println("Main received " + battle.getWinningTeam().toString() + " as winners.");  // make sure proper winners returned
 

@@ -13,14 +13,16 @@ public class Fighter extends ComponentContainer {
     private final ArrayList<Attack> attacks = new ArrayList<>(); // all the attacks available to this fighter
     private final Battle battle; // the battle the fighter is in
     private final Input inputComponent; // for getting input
+    private final Display displayComponent;
     //private ArrayList<StatusEffect> currentConditions; // store all active special conditions on fighter
 
-    public Fighter(Input inputComponent, Health healthComponent, String[] attackIds, String name, Battle battle) {
+    public Fighter(Input inputComponent, Display displayComponent, Health healthComponent, String[] attackIds, String name, Battle battle) {
         // init variables
         this.healthComponent = healthComponent;
         this.name = name;
         this.battle = battle;
         this.inputComponent = inputComponent;
+        this.displayComponent = displayComponent;
 
         // add all attack objects to attack list
         for (String attackId: attackIds) {
@@ -30,6 +32,7 @@ public class Fighter extends ComponentContainer {
         // add the components
         this.components.add(inputComponent);
         this.components.add(healthComponent);
+        this.components.add(displayComponent);
     }
 
     /*
@@ -51,12 +54,12 @@ public class Fighter extends ComponentContainer {
         opponent.healthComponent.takeDamage(damage);
 
         // SECTION  ->  give the display the info it needs
-        Display display = battle.getDisplayComponent();
-        display.setAttacker(this);
-        display.setAttack(attackChosen);
-        display.setDeltaAttackerHealth(0); // this will likely change later when healing is introduced
-        display.setDeltaOpponentHealth(-damage);
-        display.setOpponent(opponent);
+        displayComponent.setAttacker(this);
+        displayComponent.setAttack(attackChosen);
+        displayComponent.setDeltaAttackerHealth(0); // this will likely change later when healing is introduced
+        displayComponent.setDeltaOpponentHealth(-damage);
+        displayComponent.setOpponent(opponent);
+        displayComponent.display();
     }
 
     // getters

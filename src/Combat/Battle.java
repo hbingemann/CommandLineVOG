@@ -45,12 +45,10 @@ public class Battle extends ComponentContainer {
 
     private final ArrayList<Fighter> teamA = new ArrayList<>();
     private final ArrayList<Fighter> teamB = new ArrayList<>();
-    private final Display displayComponent;
     private final TurnTaking turnTakingComponent;
 
-    public Battle(Display displayComponent, TurnTaking turnTakingComponent) {
+    public Battle(TurnTaking turnTakingComponent) {
         this.turnTakingComponent = turnTakingComponent;
-        this.displayComponent = displayComponent;
     }
 
     // function to be called when the battle should begin, returns the winning team and null if tie
@@ -62,18 +60,16 @@ public class Battle extends ComponentContainer {
         while (getTeamAlive(teamA) && getTeamAlive(teamB)) {
             // have the next fighter up take their turn
             turnTakingComponent.next(this).takeTurn();
-            // display the turn
-            displayComponent.display();
         }
     }
 
     // functions to initialize fighters
-    public void addFighterTeamA(Input inputComponent, Health healthComponent, String[] attackIds, String name) {
-        teamA.add(new Fighter(inputComponent, healthComponent, attackIds, name, this));
+    public void addFighterTeamA(Input inputComponent, Display displayComponent, Health healthComponent, String[] attackIds, String name) {
+        teamA.add(new Fighter(inputComponent, displayComponent, healthComponent, attackIds, name, this));
     }
 
-    public void addFighterTeamB(Input inputComponent, Health healthComponent, String[] attackIds, String name) {
-        teamB.add(new Fighter(inputComponent, healthComponent, attackIds, name, this));
+    public void addFighterTeamB(Input inputComponent, Display displayComponent, Health healthComponent, String[] attackIds, String name) {
+        teamB.add(new Fighter(inputComponent, displayComponent, healthComponent, attackIds, name, this));
     }
 
     // check if specific team alive
@@ -104,7 +100,6 @@ public class Battle extends ComponentContainer {
     }
 
     // getters
-    public Display getDisplayComponent() { return displayComponent; }
     public ArrayList<Fighter> getTeamA() {
         return teamA;
     }
