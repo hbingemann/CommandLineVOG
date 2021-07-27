@@ -1,7 +1,6 @@
 package Combat.input;
 
 import Combat.Attack;
-import Combat.Battle;
 import Combat.Fighter;
 
 import java.util.ArrayList;
@@ -31,7 +30,8 @@ public class PlayerInput extends Input {
         while (true) {
             try {
                 System.out.print("Enter attack number: ");
-                return attacks.get(Integer.parseInt(input.nextLine()) - 1);
+                int userChoice = Integer.parseInt(input.nextLine());
+                return attacks.get(userChoice - 1);
             } catch (NumberFormatException | IndexOutOfBoundsException e) {
                 System.out.println("Invalid input. Try Again.");
             }

@@ -1,18 +1,11 @@
-package Combat;
+package Combat.battle;
 
-import Combat.display.Display;
-import Combat.health.Health;
-import Combat.input.Input;
-import Combat.turns.TurnTaking;
+import Combat.Fighter;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
-// main class for combat
-public class Battle extends ComponentContainer {
-
-    // holds the input class
-    public static final Scanner input = new Scanner(System.in);
+// this is a battle with two teams
+public class TwoTeamBattle extends Battle {
 
     /*
     Special Condition ideas:
@@ -45,31 +38,34 @@ public class Battle extends ComponentContainer {
 
     private final ArrayList<Fighter> teamA = new ArrayList<>();
     private final ArrayList<Fighter> teamB = new ArrayList<>();
-    private final TurnTaking turnTakingComponent;
+    private int turn = 0;
 
-    public Battle(TurnTaking turnTakingComponent) {
-        this.turnTakingComponent = turnTakingComponent;
-    }
-
-    // function to be called when the battle should begin, returns the winning team and null if tie
+    // function to be called when the battle should begin
+    @Override
     public void run() {
         // make sure we have enough players
-        assert teamA.size() >= 1 && teamB.size() >= 1;
+        assert teamA.size() >= 1 && teamB.size() >= 1 : "Not enough fighters to begin the battle.";
 
-        // take turns while there is at least one player from each team who is alive
+        // while loop for battle
         while (getTeamAlive(teamA) && getTeamAlive(teamB)) {
-            // have the next fighter up take their turn
-            turnTakingComponent.next(this).takeTurn();
+            nextFighter().takeTurn();
         }
     }
 
-    // functions to initialize fighters
-    public void addFighterTeamA(Input inputComponent, Display displayComponent, Health healthComponent, String[] attackIds, String name) {
-        teamA.add(new Fighter(inputComponent, displayComponent, healthComponent, attackIds, name, this));
-    }
+    // function for next fighter to take their turn
+    private Fighter nextFighter() {
 
-    public void addFighterTeamB(Input inputComponent, Display displayComponent, Health healthComponent, String[] attackIds, String name) {
-        teamB.add(new Fighter(inputComponent, displayComponent, healthComponent, attackIds, name, this));
+        turn++;
+        Fighter nextFighter;
+
+        // swap between team A and team B
+        if (turn % 2 == 1) {
+            nextFighter = teamA.get(turn / 2 % teamA.size());
+        } else {
+            nextFighter = teamB.get(turn / 2 % teamB.size());
+        }
+        return nextFighter;
+
     }
 
     // check if specific team alive
@@ -83,15 +79,16 @@ public class Battle extends ComponentContainer {
     }
 
     // return the winners, null if tie
-    public ArrayList<Fighter> getWinningTeam() {
+    @Override
+    public ArrayList<Fighter> getWinners() {
         boolean teamAAlive = getTeamAlive(teamA);
         boolean teamBAlive = getTeamAlive(teamB);
         // make sure this function isn't called when it shouldn't be
         assert !(teamAAlive && teamBAlive) : "No winning team yet. " +
-                "Either 'getWinningTeam' was called too early or " +
+                "Either this function was called too early or " +
                 "the battle ended before a winner was declared.";
         if (teamAAlive) {
-           return teamA; // team A wins!
+            return teamA; // team A wins!
         } else if (teamBAlive) {
             return teamB; // team B wins!
         } else {
@@ -99,12 +96,20 @@ public class Battle extends ComponentContainer {
         }
     }
 
+    // register a fighter in the battle
+    @Override
+    public void registerFighter(Fighter fighter) {
+        // add fighters to team B if team A already has more fighters
+        if (teamA.size() > teamB.size()) {
+            teamB.add(fighter);
+        } else {
+            teamA.add(fighter);
+        }
+    }
+
     // getters
-    public ArrayList<Fighter> getTeamA() {
-        return teamA;
-    }
-    public ArrayList<Fighter> getTeamB() {
-        return teamB;
-    }
+    public ArrayList<Fighter> getTeamA() {return teamA; }
+    public ArrayList<Fighter> getTeamB() { return teamB; }
+    @Override
     public ArrayList<Fighter> getOpponents(Fighter fighter) { return teamA.contains(fighter) ? teamB : teamA; }
 }

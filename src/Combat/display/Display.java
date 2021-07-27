@@ -1,7 +1,6 @@
 package Combat.display;
 
 import Combat.Attack;
-import Combat.Battle;
 import Combat.Component;
 import Combat.Fighter;
 

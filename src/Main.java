@@ -1,18 +1,23 @@
-import Combat.Battle;
-import Combat.display.DefaultDisplay;
 import Combat.Fighter;
+import Combat.battle.Battle;
+import Combat.battle.TwoTeamBattle;
+import Combat.display.DefaultDisplay;
 import Combat.display.Display;
 import Combat.health.Health;
 import Combat.input.ComputerInput;
-import Combat.input.Input;
 import Combat.input.PlayerInput;
-import Combat.turns.DefaultTurnTaking;
-import Combat.turns.TurnTaking;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 // libgdx would be a good graphics library if need be
+
+
+/* idea for save data:
+    Use the hashcode from System.getProperty("user.name") ->
+    with that hashcode and the players current data ->
+    encode a number that can be decoded and isn't too long.
+    Later: ask user for number and decode it to load save data
+ */
 
 public class Main {
 
@@ -38,23 +43,14 @@ public class Main {
 
         // testing things here
 
-        /* idea for save data:
-            Use the hashcode from System.getProperty("user.name") ->
-            with that hashcode and the players current data ->
-            encode a number that can be decoded and isn't too long.
-            Later: ask user for number and decode it to load save data
-         */
-
-        Display displayComponent = new DefaultDisplay();
         String[] attacks = new String[] {"coolAttack", "lameAttack"};
-        Health healthComponent = new Health(200);
-        TurnTaking turnTakingComponent = new DefaultTurnTaking();
 
-        Battle battle = new Battle(turnTakingComponent);
-        battle.addFighterTeamA(new PlayerInput(), displayComponent, healthComponent, attacks, "Henrik");
-        battle.addFighterTeamB(new ComputerInput(), displayComponent, healthComponent, attacks, "Computer");
-        battle.run();
-        System.out.println("Main received " + battle.getWinningTeam().toString() + " as winners.");  // make sure proper winners returned
+        // as of now, battle automatically assigns teams, probably change later
+        Battle battleComponent = new TwoTeamBattle();
+        new Fighter(new PlayerInput(), new DefaultDisplay(), new Health(200), battleComponent, attacks, "Henrik");
+        new Fighter(new ComputerInput(), new DefaultDisplay(), new Health(200), battleComponent, attacks, "Computer");
+        battleComponent.run();
+        System.out.println("Main received " + battleComponent.getWinners() + " as winner(s).");  // make sure proper winners returned
 
     }
 
