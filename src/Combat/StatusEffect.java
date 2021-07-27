@@ -31,7 +31,7 @@ public class StatusEffect {
     private static final String validEffectNames = statusEffects.getJSONArray("validEffectNames").toString();
 
     // non-static variables
-    private JSONObject statusEffectDefinitionObject;
+    private JSONObject statusEffectData;
     private JSONObject effects;
 
     /* #######  HOW IT WORKS ###### */
@@ -44,9 +44,9 @@ public class StatusEffect {
     // CONSTRUCTOR (this will be type object pattern using json file)
     public StatusEffect(String statusEffectName, Fighter fighterWithStatusEffect) {
         // search json file using name and get object representing status effect
-        this.statusEffectDefinitionObject = statusEffects.getJSONObject(statusEffectName);
+        this.statusEffectData = statusEffects.getJSONObject(statusEffectName);
         // create a new object so that it can be altered, the Effect does not need to be altered
-        this.effects = new JSONObject(statusEffectDefinitionObject.getJSONObject("effects").toString());
+        this.effects = new JSONObject(statusEffectData.getJSONObject("effects").toString());
         // "subscribe" to the fighters events
         //fighterWithStatusEffect.addObserver(mainObserver);
     }
@@ -59,17 +59,6 @@ public class StatusEffect {
 
     ###################################
      */
-
-
-
-
-    private final Observer mainObserver = (notification) -> {
-        switch (notification) {
-            case FIGHTER_END_TURN:
-                fighterEndTurn();
-                break;
-        }
-    };
 
     public void fighterEndTurn() {
 

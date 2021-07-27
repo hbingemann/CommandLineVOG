@@ -2,6 +2,6 @@ package Combat;
 
 public class Component {
 
-    public void receive(String message) {};
+    public void receive(Message message) {};
 
 }
