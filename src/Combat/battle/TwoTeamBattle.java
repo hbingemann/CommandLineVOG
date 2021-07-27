@@ -1,6 +1,7 @@
 package Combat.battle;
 
 import Combat.Fighter;
+import Combat.Message;
 
 import java.util.ArrayList;
 

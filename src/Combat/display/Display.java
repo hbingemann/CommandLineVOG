@@ -3,6 +3,7 @@ package Combat.display;
 import Combat.Attack;
 import Combat.Component;
 import Combat.Fighter;
+import Combat.Message;
 
 import java.util.Scanner;
 
@@ -22,28 +23,21 @@ public class Display extends Component {
             -- miss / no miss
             -- result after dealing damage
      */
-    protected Integer deltaOpponentHealth, deltaAttackerHealth;
-    protected Fighter attacker, opponent;
+    protected Integer deltaTargetHealth, deltaAttackerHealth;
+    protected Fighter attacker, target;
     protected Attack attack;
 
-    // these might be able to be replaced by the messaging system
-    public void display() {}
+    public void handle(Fighter fighter) {}
 
-    public void setAttack(Attack attack) { this.attack = attack; }
-
-    public void setOpponent(Fighter opponent) {
-        this.opponent = opponent;
-    }
-
-    public void setAttacker(Fighter attacker) {
-        this.attacker = attacker;
-    }
-
-    public void setDeltaOpponentHealth(int deltaOpponentHealth) {
-        this.deltaOpponentHealth = deltaOpponentHealth;
-    }
-
-    public void setDeltaAttackerHealth(int deltaAttackerHealth) {
-        this.deltaAttackerHealth = deltaAttackerHealth;
+    // for setting vars
+    @Override
+    public void receive(Message message) {
+        switch (message.getMessage()) {
+            case ATTACKER -> attacker = message.getFighterData();
+            case ATTACK -> attack = message.getAttackData();
+            case TARGET -> target = message.getFighterData();
+            case DELTA_ATTACKER_HEALTH -> deltaAttackerHealth = message.getIntData();
+            case DELTA_TARGET_HEALTH -> deltaTargetHealth = message.getIntData();
+        }
     }
 }

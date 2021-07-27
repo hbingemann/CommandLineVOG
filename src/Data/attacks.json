@@ -2,13 +2,47 @@
   "coolAttack": {
     "name": "Very Cool Attack",
     "description": "90% chance to do 50 damage.",
-    "damage": 50,
-    "chance": 90
+    "singleOutcome": true,
+    "outcomes": [
+      {
+        "damage": 50,
+        "chance": 90
+      }
+    ]
   },
   "lameAttack": {
     "name": "Super Lame Attack",
     "description": "Do 1 damage ... sometimes.",
-    "damage": 1,
-    "chance": 40
+    "singleOutcome": true,
+    "outcomes": [
+      {
+        "damage": 1,
+        "chance": 40
+      }
+    ]
+  },
+
+
+
+
+
+  "how attacks hopefully look in the future" : {
+    "name": "future attack template",
+    "description" : "this is just an attack template for future attacks",
+    "singleOutcome": true,
+    "outcomes": [
+      {
+        "damage": 100,
+        "statusEffects": ["poison", "confusion"],
+        "conditions": {
+          "weather": "$not$ rain",
+          "chance": 90
+        }
+      },
+      {
+        "damage": 40
+      }
+    ]
   }
+
 }

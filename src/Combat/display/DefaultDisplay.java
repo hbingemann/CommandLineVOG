@@ -1,38 +1,38 @@
 package Combat.display;
 
 import Combat.Fighter;
+import Combat.Message;
+import Combat.Messages;
+import Debug.Debug;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.Scanner;
 
 public class DefaultDisplay extends Display{
 
     // main display function
     @Override
-    public void display() {
+    public void handle(Fighter fighter) {
         // define a custom display of the turn
         // first assert necessary variables
         assert attacker != null &&
                 attack != null &&
-                opponent != null &&
-                deltaOpponentHealth != null &&
+                target != null &&
+                deltaTargetHealth != null &&
                 deltaAttackerHealth != null : "The Display is missing a variable!";
 
 
         // reset output to show this turn
-        System.out.println("CLEAR");
-        System.out.print("\n\n\n");
+        Debug.clearScreen();
 
         // begin display by saying the attack used
-        System.out.printf("%s used %s on %s!\n", attacker.getName(), attack.getName(), opponent.getName());
+        System.out.printf("%s used %s on %s!\n", attacker.getName(), attack.getName(), target.getName());
 
         // display what attack did to opponent
-        if (deltaOpponentHealth < 0) {
-            System.out.printf("It did %d damage!\n", Math.abs(deltaOpponentHealth));
-        } else if (deltaOpponentHealth == 0) {
+        if (deltaTargetHealth < 0) {
+            System.out.printf("It did %d damage!\n", Math.abs(deltaTargetHealth));
+        } else if (deltaTargetHealth == 0) {
             System.out.print("It missed!\n");
         } else {
-            System.out.printf("Oh no! %s healed %s for %d health!", attacker.getName(), opponent.getName(), Math.abs(deltaOpponentHealth));
+            System.out.printf("Oh no! %s healed %s for %d health!", attacker.getName(), target.getName(), Math.abs(deltaTargetHealth));
         }
         System.out.println();
 
@@ -54,14 +54,14 @@ public class DefaultDisplay extends Display{
 
         // display the opponent fighter's health
         System.out.printf("%s health: %d/%d \n%s\n",
-                opponent.getName(),
-                opponent.healthComponent.getHealth(), opponent.healthComponent.getMaxHealth(),
-                getHealthVisual(opponent));
+                target.getName(),
+                target.healthComponent.getHealth(), target.healthComponent.getMaxHealth(),
+                getHealthVisual(target));
         System.out.println();
 
         // if there is a death, display it
-        if (opponent.healthComponent.getHealth() == 0) {
-            System.out.printf("%s died.\n", opponent.getName());
+        if (target.healthComponent.getHealth() == 0) {
+            System.out.printf("%s died.\n", target.getName());
         } else if (attacker.healthComponent.getHealth() == 0) {
             System.out.printf("%s died.\n", attacker.getName());
         }
@@ -71,12 +71,15 @@ public class DefaultDisplay extends Display{
         System.out.print("Hit <enter> to continue: ");
         input.nextLine();
 
+        // send a message that the turn has ended
+        fighter.send(new Message(Messages.END_TURN));
+
         // reset all variables
         attacker = null;
         attack = null;
-        opponent = null;
+        target = null;
         deltaAttackerHealth = null;
-        deltaOpponentHealth = null;
+        deltaTargetHealth = null;
 
     }
 

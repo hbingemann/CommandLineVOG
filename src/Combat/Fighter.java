@@ -2,6 +2,7 @@ package Combat;
 
 import Combat.battle.Battle;
 import Combat.display.Display;
+import Combat.distributor.DamageDistributor;
 import Combat.health.Health;
 import Combat.input.Input;
 
@@ -35,36 +36,19 @@ public class Fighter extends ComponentContainer {
         this.components.add(healthComponent);
         this.components.add(displayComponent);
         this.components.add(battleComponent);
+        this.components.add(new DamageDistributor());  // hard-coded, might change
 
         // register this fighter in the battle
         battleComponent.registerFighter(this);
     }
 
-    /*
-    ########################################
-
-                TURN TAKING
-
-    ########################################
-     */
-
+    // for taking turn
     public void takeTurn() {
+        // first get input
+        inputComponent.handle(this);
 
-        // SECTION   ->    choosing attack and opponents
-        Attack attackChosen = inputComponent.getAttackChoice(this);
-        Fighter opponent = inputComponent.getOpponentChoice(this);
-
-        // SECTION  ->  use attack on opponent
-        int damage = attackChosen.getDamage();
-        opponent.healthComponent.takeDamage(damage);
-
-        // SECTION  ->  give the display the info it needs
-        displayComponent.setAttacker(this);
-        displayComponent.setAttack(attackChosen);
-        displayComponent.setDeltaAttackerHealth(0); // this will likely change later when healing is introduced
-        displayComponent.setDeltaOpponentHealth(-damage);
-        displayComponent.setOpponent(opponent);
-        displayComponent.display();
+        // end it by displaying
+        displayComponent.handle(this);
     }
 
     // getters

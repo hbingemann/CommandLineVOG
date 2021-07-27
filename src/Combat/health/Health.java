@@ -1,6 +1,8 @@
 package Combat.health;
 
+import Combat.Attack;
 import Combat.Component;
+import Combat.Message;
 
 public class Health extends Component {
 
@@ -12,24 +14,20 @@ public class Health extends Component {
         this.health = maxHealth;
     }
 
-    public void takeDamage(int damage) {
-        health -= damage;
-        if (health <= 0) {
-            health = 0;
-        }
-    }
-
-    public void heal(int healValue) {
-        health += healValue;
-        if (health > maxHealth) {
-            health = maxHealth;
-        }
+    public void changeHealth(int amount) {
+        health += amount;
+        health = Math.max(0, Math.min(maxHealth, health)); // clamp it between the range of 0 and maxHealth
     }
 
     // getters
-    public int getHealth() {
-        return health;
-    }
+    public int getHealth() { return health; }
     public int getMaxHealth() { return maxHealth; }
+
+    @Override
+    public void receive(Message message) {
+        switch (message.getMessage()) {
+            case DELTA_ATTACKER_HEALTH -> changeHealth(message.getIntData());
+        }
+    }
 
 }

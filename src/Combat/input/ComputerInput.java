@@ -2,6 +2,8 @@ package Combat.input;
 
 import Combat.Attack;
 import Combat.Fighter;
+import Combat.Message;
+import Combat.Messages;
 
 import java.util.ArrayList;
 
@@ -20,13 +22,13 @@ public class ComputerInput extends Input {
 
     // for choosing opponent
     @Override
-    public Fighter getOpponentChoice(Fighter fighter) {
+    public Fighter getTargetChoice(Fighter fighter) {
 
-        ArrayList<Fighter> opponents = fighter.getOpponents();
+        ArrayList<Fighter> targets = fighter.getOpponents();
 
         // since it is a computer, right now it is just random number
-        int choice = (int) (Math.random() * opponents.size());
-        return opponents.get(choice);
+        int choice = (int) (Math.random() * targets.size());
+        return targets.get(choice);
 
     }
 

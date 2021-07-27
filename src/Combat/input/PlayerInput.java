@@ -2,20 +2,21 @@ package Combat.input;
 
 import Combat.Attack;
 import Combat.Fighter;
+import Combat.Message;
+import Combat.Messages;
+import Debug.Debug;
 
 import java.util.ArrayList;
 
 public class PlayerInput extends Input {
 
     // for choosing attack
-    @Override
     public Attack getAttackChoice(Fighter fighter) {
 
         ArrayList<Attack> attacks = fighter.getAttacks();
 
         // clear for space to show attacks
-        System.out.println("CLEAR");
-        System.out.println("\n\n\n");
+        Debug.clearScreen();
 
         // display attacks
         System.out.println("Your Attacks: \n");
@@ -39,8 +40,7 @@ public class PlayerInput extends Input {
     }
 
     // for choosing opponent
-    @Override
-    public Fighter getOpponentChoice(Fighter fighter) {
+    public Fighter getTargetChoice(Fighter fighter) {
         ArrayList<Fighter> opponents = fighter.getOpponents();
         if (opponents.size() == 1) {
             return opponents.get(0);  // only one choice so it would be redundant to ask the user for opponent choice
